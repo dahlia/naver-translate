@@ -1,7 +1,8 @@
 name:                naver-translate
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Interface to Naver Translate
 homepage:            https://github.com/dahlia/naver-translate
+bug-reports:         https://github.com/dahlia/naver-translate/issues
 license:             GPL-3
 license-file:        LICENSE
 author:              Hong Minhee
