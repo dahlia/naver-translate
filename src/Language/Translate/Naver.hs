@@ -14,7 +14,11 @@ import Network.URI (URI(URI), URIAuth(URIAuth), relativeTo, uriIsAbsolute)
 import Network.Wreq (FormParam((:=)), post, responseBody)
 import System.Random (getStdRandom, randomR)
 
-translate :: ISO639_1 -> ISO639_1 -> Text -> IO Text
+-- | Translate a string.
+translate :: ISO639_1 -- ^ The language translated from
+          -> ISO639_1 -- ^ The language to translate to
+          -> Text     -- ^ The text to translate
+          -> IO Text  -- ^ The translated text
 translate sourceLanguage targetLanguage text =
     let response =
             post
@@ -42,7 +46,11 @@ arbitraryNumeric =
     in
         liftM pack string
 
-translateMultiple :: ISO639_1 -> ISO639_1 -> [Text] -> IO [Text]
+-- | Translate multiple strings at one go.
+translateMultiple :: ISO639_1  -- ^ The language translated from
+                  -> ISO639_1  -- ^ The language to translate to
+                  -> [Text]    -- ^ The texts to translate
+                  -> IO [Text] -- ^ The translated texts
 translateMultiple sourceLanguage targetLanguage texts = do
     spliter <- arbitraryNumeric
     let bundle = intercalate (snoc (cons ' ' spliter) ' ') texts
