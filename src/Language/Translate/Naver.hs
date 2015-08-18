@@ -4,6 +4,7 @@ module Language.Translate.Naver ( translate
                                 ) where
 
 import Control.Lens ((^?))
+import Control.Monad (liftM)
 import Data.Aeson.Lens (key)
 import Data.Aeson.Types (Value(String))
 import Data.LanguageCodes (ISO639_1, language)
@@ -17,12 +18,12 @@ translate sourceLanguage targetLanguage text =
             post
             "http://translate.naver.com/translate.dic"
             [ "query" := text
-            , "srcLang" := (pack $ language sourceLanguage)
-            , "tarLang" := (pack $ language targetLanguage)
+            , "srcLang" := pack (language sourceLanguage)
+            , "tarLang" := pack (language targetLanguage)
             , "highlight" := ("0" :: Text)
             , "hurigana" := ("0" :: Text)]
         getResultData resp = resp ^? responseBody . key "resultData"
-        resultData = response >>= return . getResultData
+        resultData = liftM getResultData response
     in
         resultData >>= \dat -> case dat of
             Just (String translated) -> return translated
@@ -35,9 +36,9 @@ arbitraryNumeric :: IO Text
 arbitraryNumeric =
     let
         randomDigit i = getStdRandom (randomR (if i > 1 then '0' else '1', '9'))
-        string = sequence $ map randomDigit [1..arbitraryNumericLength]
+        string = mapM randomDigit [1..arbitraryNumericLength]
     in
-        string >>= return . pack
+        liftM pack string
 
 translateMultiple :: ISO639_1 -> ISO639_1 -> [Text] -> IO [Text]
 translateMultiple sourceLanguage targetLanguage texts = do
