@@ -10,7 +10,7 @@ import Data.Aeson.Lens (key)
 import Data.Aeson.Types (Value(String))
 import Data.LanguageCodes (ISO639_1(JA, KO), language)
 import Data.Text (Text, cons, intercalate, pack, snoc, splitOn, strip)
-import Network.URI (URI(URI), URIAuth(URIAuth), relativeTo, uriIsAbsolute)
+import Network.URI (URI(URI), URIAuth(URIAuth), relativeTo)
 import Network.Wreq (FormParam((:=)), post, responseBody)
 import System.Random (getStdRandom, randomR)
 
