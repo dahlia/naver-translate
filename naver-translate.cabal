@@ -1,5 +1,5 @@
 name:                naver-translate
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            Interface to Naver Translate
 homepage:            https://github.com/dahlia/naver-translate
 bug-reports:         https://github.com/dahlia/naver-translate/issues
